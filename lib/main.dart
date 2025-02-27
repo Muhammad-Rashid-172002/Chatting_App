@@ -1,4 +1,4 @@
-import 'package:chatting_app/Models/chatting_Screen.dart';
+import 'package:chatting_app/views/Screens/chat_screen/chatting_Screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
