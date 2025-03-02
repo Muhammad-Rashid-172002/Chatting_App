@@ -7,7 +7,10 @@ import 'package:chatting_app/views/Screens/chat_screen/Person_Chatting_Screen/ch
 import 'package:chatting_app/views/Screens/chat_screen/Person_Chatting_Screen/chatting_Screen7.dart';
 import 'package:chatting_app/views/Screens/chat_screen/Person_Chatting_Screen/chatting_Screen8.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
+// ✅ Main Chatting Screen with Bottom Navigation
 class ChattingScreen extends StatefulWidget {
   const ChattingScreen({super.key});
 
@@ -18,9 +21,9 @@ class ChattingScreen extends StatefulWidget {
 class _ChattingScreenState extends State<ChattingScreen> {
   int currentIndex = 0;
   List pages = [
-    Profile_Screen(),
-    Chatting_Screen(),
-    Setting_Screen(),
+    ProfileScreen(), // ✅ Fixed Naming
+    ChattingScreenMain(), // ✅ Fixed Naming
+    SettingScreen(), // ✅ Fixed Naming
   ];
 
   @override
@@ -47,8 +50,9 @@ class _ChattingScreenState extends State<ChattingScreen> {
   }
 }
 
-class Setting_Screen extends StatelessWidget {
-  const Setting_Screen({super.key});
+// ✅ Fixed Naming for Setting Screen
+class SettingScreen extends StatelessWidget {
+  const SettingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -58,15 +62,16 @@ class Setting_Screen extends StatelessWidget {
   }
 }
 
-class Chatting_Screen extends StatefulWidget {
+// ✅ Main Chatting Screen
+class ChattingScreenMain extends StatefulWidget {
   @override
-  State<Chatting_Screen> createState() => _Chatting_ScreenState();
+  State<ChattingScreenMain> createState() => _ChattingScreenMainState();
 }
 
-class _Chatting_ScreenState extends State<Chatting_Screen> {
+class _ChattingScreenMainState extends State<ChattingScreenMain> {
   final List<Map<String, dynamic>> contacts = [
     {
-      'title': 'Johon Doe',
+      'title': 'John Doe',
       'image': 'assets/images/1 (1).jpeg',
       'page': ChattingScreen1()
     },
@@ -118,20 +123,10 @@ class _Chatting_ScreenState extends State<Chatting_Screen> {
 
   void _searchName(String input) {
     setState(() {
-      if (input.isEmpty) {
-        filteredContacts = List.from(contacts);
-      } else {
-        filteredContacts = contacts
-            .where((contact) =>
-                contact['title'].toLowerCase().contains(input.toLowerCase()))
-            .toList();
-
-        if (filteredContacts.isEmpty) {
-          filteredContacts = [
-            {'title': 'Not Found', 'image': null, 'page': null}
-          ];
-        }
-      }
+      filteredContacts = contacts
+          .where((contact) =>
+              contact['title'].toLowerCase().contains(input.toLowerCase()))
+          .toList();
     });
   }
 
@@ -150,11 +145,7 @@ class _Chatting_ScreenState extends State<Chatting_Screen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Chat',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-      ),
+          title: Text('Chat', style: TextStyle(fontWeight: FontWeight.bold))),
       body: Column(
         children: [
           Padding(
@@ -165,10 +156,8 @@ class _Chatting_ScreenState extends State<Chatting_Screen> {
                 filled: true,
                 hintText: "Search",
                 prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(),
-                  borderRadius: BorderRadius.circular(10),
-                ),
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
               ),
               onChanged: _searchName,
             ),
@@ -177,48 +166,24 @@ class _Chatting_ScreenState extends State<Chatting_Screen> {
             child: ListView.builder(
               itemCount: filteredContacts.length,
               itemBuilder: (context, index) {
-                if (filteredContacts[index]['title'] == "Not Found") {
-                  return Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Text(
-                        "Not Found",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  );
-                }
-
                 return ListTile(
-                  leading: filteredContacts[index]['image'] != null
-                      ? ClipRRect(
-                          borderRadius: BorderRadius.circular(100),
-                          child: Image.asset(
-                            filteredContacts[index]['image'],
-                            width: 50,
-                            height: 50,
-                            fit: BoxFit.cover,
-                          ),
-                        )
-                      : null,
-                  title: Text(
-                    filteredContacts[index]['title'],
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                  leading: ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                    child: Image.asset(filteredContacts[index]['image'],
+                        width: 50, height: 50, fit: BoxFit.cover),
                   ),
+                  title: Text(filteredContacts[index]['title'],
+                      style: TextStyle(fontWeight: FontWeight.bold)),
                   subtitle: Text('What is the condition of the product?'),
-                  trailing: Text(
-                    times[index % times.length],
-                    style: TextStyle(color: Colors.grey),
-                  ),
+                  trailing: Text(times[index % times.length],
+                      style: TextStyle(color: Colors.grey)),
                   onTap: () {
                     if (filteredContacts[index]['page'] != null) {
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => filteredContacts[index]['page'],
-                        ),
-                      );
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  filteredContacts[index]['page']));
                     }
                   },
                 );
@@ -231,13 +196,98 @@ class _Chatting_ScreenState extends State<Chatting_Screen> {
   }
 }
 
-class Profile_Screen extends StatelessWidget {
-  const Profile_Screen({super.key});
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  File? _image;
+  final ImagePicker _picker = ImagePicker();
+
+  // Function to pick an image
+  Future<void> _pickImage(ImageSource source) async {
+    final pickedFile = await _picker.pickImage(source: source);
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+    }
+  }
+
+  // Show options (Gallery or Camera)
+  void _showImageSourceDialog() {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return Wrap(
+          children: [
+            ListTile(
+              leading: Icon(Icons.photo_library, color: Colors.blue),
+              title: Text("Pick from Gallery"),
+              onTap: () {
+                Navigator.pop(context);
+                _pickImage(ImageSource.gallery);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.camera_alt, color: Colors.green),
+              title: Text("Capture from Camera"),
+              onTap: () {
+                Navigator.pop(context);
+                _pickImage(ImageSource.camera);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text("Profile Screen"),
+    return Scaffold(
+      appBar: AppBar(title: Text('Profile')),
+      body: Center(
+        child: Stack(
+          children: [
+            // Profile Image
+            CircleAvatar(
+              radius: 75,
+              backgroundColor: Colors.grey[300],
+              backgroundImage: _image != null ? FileImage(_image!) : null,
+              child: _image == null
+                  ? Icon(Icons.person, size: 80, color: Colors.white)
+                  : null,
+            ),
+
+            // Camera Button (Inside Profile Image)
+            Positioned(
+              bottom: 0,
+              right: 0,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.black26, blurRadius: 4, spreadRadius: 2),
+                  ],
+                ),
+                child: IconButton(
+                  icon: Icon(Icons.camera_alt, color: Colors.white),
+                  onPressed: _showImageSourceDialog,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
