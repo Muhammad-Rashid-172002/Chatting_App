@@ -6,6 +6,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:8.2.1' // Ensure Gradle version is compatible
         classpath 'com.google.gms:google-services:4.3.10' // Google Services dependency
+        ext.kotlin_version = "1.8.22"
     }
 }
 allprojects {

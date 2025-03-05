@@ -41,48 +41,48 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyB_bdWV3pUsZfM2Hq1iZwJqhmSz3FQgugA',
-    appId: '1:381937032528:web:9f054539561ab6e1fb2055',
-    messagingSenderId: '381937032528',
-    projectId: 'chatting-app-6a8cb',
-    authDomain: 'chatting-app-6a8cb.firebaseapp.com',
-    storageBucket: 'chatting-app-6a8cb.firebasestorage.app',
-    measurementId: 'G-1B8K4MTKCK',
+    apiKey: 'AIzaSyCiTmyyPErVjSnu8x6IwmWD6iRV9V1DpxI',
+    appId: '1:820690181591:web:58a9cc3faa6e92a12e7f92',
+    messagingSenderId: '820690181591',
+    projectId: 'talk-app-cd9b7',
+    authDomain: 'talk-app-cd9b7.firebaseapp.com',
+    storageBucket: 'talk-app-cd9b7.firebasestorage.app',
+    measurementId: 'G-Z6CZK38H8X',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCPl_wR9gTJoWZOQvM13B4FcBTkfgjxbxk',
-    appId: '1:381937032528:android:5c4cb3e4bd1ea59efb2055',
-    messagingSenderId: '381937032528',
-    projectId: 'chatting-app-6a8cb',
-    storageBucket: 'chatting-app-6a8cb.firebasestorage.app',
+    apiKey: 'AIzaSyBF-qHrcOe36K1WozabRKDLKfgB8oJmV7w',
+    appId: '1:820690181591:android:e99c9466d6514c5a2e7f92',
+    messagingSenderId: '820690181591',
+    projectId: 'talk-app-cd9b7',
+    storageBucket: 'talk-app-cd9b7.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyB3_TAez3FTAtqAd56_tJpXRBDRfb5sppA',
-    appId: '1:381937032528:ios:13b71aa72bc01a20fb2055',
-    messagingSenderId: '381937032528',
-    projectId: 'chatting-app-6a8cb',
-    storageBucket: 'chatting-app-6a8cb.firebasestorage.app',
+    apiKey: 'AIzaSyAx3DE4aojgvP9OZP6wvjrDzjUbKT5q-G4',
+    appId: '1:820690181591:ios:99660f5b016f3e4c2e7f92',
+    messagingSenderId: '820690181591',
+    projectId: 'talk-app-cd9b7',
+    storageBucket: 'talk-app-cd9b7.firebasestorage.app',
     iosBundleId: 'com.example.chattingApp',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyB3_TAez3FTAtqAd56_tJpXRBDRfb5sppA',
-    appId: '1:381937032528:ios:13b71aa72bc01a20fb2055',
-    messagingSenderId: '381937032528',
-    projectId: 'chatting-app-6a8cb',
-    storageBucket: 'chatting-app-6a8cb.firebasestorage.app',
+    apiKey: 'AIzaSyAx3DE4aojgvP9OZP6wvjrDzjUbKT5q-G4',
+    appId: '1:820690181591:ios:99660f5b016f3e4c2e7f92',
+    messagingSenderId: '820690181591',
+    projectId: 'talk-app-cd9b7',
+    storageBucket: 'talk-app-cd9b7.firebasestorage.app',
     iosBundleId: 'com.example.chattingApp',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyB_bdWV3pUsZfM2Hq1iZwJqhmSz3FQgugA',
-    appId: '1:381937032528:web:7ce727180b09faa5fb2055',
-    messagingSenderId: '381937032528',
-    projectId: 'chatting-app-6a8cb',
-    authDomain: 'chatting-app-6a8cb.firebaseapp.com',
-    storageBucket: 'chatting-app-6a8cb.firebasestorage.app',
-    measurementId: 'G-EKMYCH4KZF',
+    apiKey: 'AIzaSyCiTmyyPErVjSnu8x6IwmWD6iRV9V1DpxI',
+    appId: '1:820690181591:web:fe64744e911da3172e7f92',
+    messagingSenderId: '820690181591',
+    projectId: 'talk-app-cd9b7',
+    authDomain: 'talk-app-cd9b7.firebaseapp.com',
+    storageBucket: 'talk-app-cd9b7.firebasestorage.app',
+    measurementId: 'G-H6RMHBRYL8',
   );
 }
